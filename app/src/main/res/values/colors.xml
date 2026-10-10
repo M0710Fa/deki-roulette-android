@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- アイコンの背景。iOS 版 AppIcon.png の背景（ダークの ink900）と同じ色 -->
+    <color name="ic_launcher_background">#17111F</color>
+    <!-- 起動画面の背景。iOS 版の LaunchBackground（ライト） -->
+    <color name="splash_background">#FAF7F2</color>
+</resources>

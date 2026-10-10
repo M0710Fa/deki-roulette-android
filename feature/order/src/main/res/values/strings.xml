@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="order_title">順番決め</string>
+    <string name="order_tagline">並び順は、ひと振りで。</string>
+    <string name="order_shuffle">並べ替え</string>
+    <string name="order_shuffling">並べ替え中…</string>
+    <string name="order_result_placeholder">並べ替えると、ここに順番が出ます</string>
+    <string name="order_rank_accessibility_label">%1$d 番目</string>
+
+    <!-- フッター。隠し操作の説明は「使い方」の中にだけ置く -->
+    <string name="order_help_basic">項目を追加して並べ替えを押すだけです。項目は 2 個から 24 個まで登録できます。改行区切りの文章を貼り付けると、まとめて追加できます。</string>
+    <string name="order_help_aim_title">位置を決めておきたいとき</string>
+    <string name="order_help_aim">項目を 0.6 秒ほど長押しすると、先頭 → 末尾 → 解除の順に切り替わります。先頭と末尾はそれぞれ 1 項目までで、別の項目に付け替えると前の指定は外れます。</string>
+    <string name="order_help_aim_stealth">指定した印は、項目に触れている間と指定した直後だけ出ます。並べ替え中と結果表示中は消え、画面を共有・収録している間も出ません。この説明も並べ替えを押すと自動で閉じます。</string>
+    <string name="order_help_aim_random">指定した項目以外の並びは常にランダムです。何も指定しなければ、順番は本当にランダムです。</string>
+    <string name="order_use_cases">発表やプレゼンの順番決め、幹事の持ち回り、掃除当番の割り当て、チーム内のレビュー担当、席替え、くじ引きの代わりに。登録不要で無料で使えます。</string>
+</resources>

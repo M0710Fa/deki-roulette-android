@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 前景は scripts/make_icon.py で iOS 版の AppIcon.png から作る。カラーの盤面はシルエットにすると円になるだけなので、モノクロ層は置かない -->
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+    <background android:drawable="@color/ic_launcher_background" />
+    <foreground android:drawable="@mipmap/ic_launcher_foreground" />
+</adaptive-icon>

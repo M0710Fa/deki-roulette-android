@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 起動画面の背景。iOS 版の LaunchBackground（ダーク） -->
+    <color name="splash_background">#17111F</color>
+</resources>

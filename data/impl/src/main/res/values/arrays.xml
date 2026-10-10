@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 保存データが無い・読めないときの初期項目（iOS の defaultItems / orderDefaultItems） -->
+    <string-array name="default_items_roulette">
+        <item>ラーメン</item>
+        <item>カレー</item>
+        <item>寿司</item>
+        <item>焼肉</item>
+    </string-array>
+    <string-array name="default_items_order">
+        <item>A チーム</item>
+        <item>B チーム</item>
+        <item>C チーム</item>
+        <item>D チーム</item>
+    </string-array>
+</resources>

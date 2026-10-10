@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.DekiRoulette" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <!-- 起動画面。背景は iOS 版の LaunchBackground（ライト・ダークは values-night の色で切り替わる）。
+         アイコンの既定はライブラリの汎用アイコンなので、アプリのアイコンを指定する -->
+    <style name="Theme.DekiRoulette.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/splash_background</item>
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
+        <item name="postSplashScreenTheme">@style/Theme.DekiRoulette</item>
+    </style>
+</resources>
