@@ -1,0 +1,46 @@
+name: Build
+
+on:
+  push:
+    # ドキュメントだけの変更では Build を実行しない
+    paths-ignore:
+      - '**/*.md'
+      - 'docs/**'
+    branches:
+      - '**'
+  pull_request:
+    # ドキュメントだけの変更では Build を実行しない
+    paths-ignore:
+      - '**/*.md'
+      - 'docs/**'
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: ${{ github.ref_name }}
+    # 同じリポジトリのブランチは push で実行済みなので、PR では Fork からのものだけ実行する
+    if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name != github.repository
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      # Gradle デーモンは gradle/gradle-daemon-jvm.properties の toolchain（25）で動くので、同じ版を入れておく
+      - name: Set up JDK
+        uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: 25
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v6
+
+      - name: Build
+        run: ./gradlew assembleDebug
+
+      - name: Lint
+        run: ./gradlew ktlintCheck lintDebug
