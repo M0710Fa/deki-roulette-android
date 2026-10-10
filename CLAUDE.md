@@ -2,135 +2,140 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Commands
+## 言語
 
-```bash
-npm run dev       # 開発サーバ起動 (http://localhost:5173)
-npm run build     # 本番ビルド (tsc + クライアント + SSR バンドル + プリレンダ)
-npm run preview   # ビルド結果のプレビュー (http://localhost:4173)
-npm run lint      # ESLint 実行
+ユーザーへの応答は常に日本語で行うこと。
+
+## このリポジトリ
+
+**デキレーレット**（結果をユーザが事前に指定できる抽選アプリ）の Android 版。iOS 版（隣のフォルダの `../deki-roulette-ios/`）からの移植で、
+**機能と見た目の仕様の正は iOS リポジトリの `docs/SPEC.md`**。Android 固有の決定と SPEC との差分は `docs/SPEC.md`（このリポジトリ）と
+`docs/architecture.md` に書く。3D 表示・端末の傾き追従・揺れは対象外。
+
+## Build Commands
+
+```shell
+# ビルド
+.\gradlew.bat assembleDebug
+
+# テスト（全モジュール）
+.\gradlew.bat test
+
+# 1 クラスだけ
+.\gradlew.bat :domain:test --tests "com.basekeita.roulette.domain.spin.RouletteMathTest"
+
+# 静的チェック
+.\gradlew.bat ktlintCheck lintDebug
 ```
 
-テストは未設定。
+JDK は Android Studio 同梱のもの（`JAVA_HOME` に `C:\Program Files\Android\Android Studio1\jbr`）で起動する。Gradle デーモンは
+`gradle/gradle-daemon-jvm.properties` の toolchain（25）で動く。
 
-## アーキテクチャ
+## 行動規約
 
-**出来レーレット** — 結果をユーザが事前に指定できる抽選アプリ。ルーレット (`/`) と順番決め (`/order/`) の 2 画面とプライバシーポリシー (`/privacy/`) を、言語 × ページごとの静的 HTML で配る Vite の MPA 構成。
+- **タスク開始前に必ず `CLAUDE.md` と `docs/architecture.md` を読むこと**
+- **ユーザーから質問された場合は、まず質問に答えること。** 回答によってその後の行動が変わる可能性があるため、作業が必要かを確認してから動く
+- **推論ベースで実装・変更・削除を行うことを禁止する。** コード・ドキュメントを変更する前に該当ファイルを読んで現状を確認する。不明な点はユーザーに確認する
+- **着手前に変更規模を見積もり、完遂できないと判断したら着手しない。** 完遂できる単位にスコープを縮小してから着手する
+- **指示の言葉を自分の技術的解釈に置き換えて実行してはいけない。** 解釈を加えていると気づいたら、実装に入らず指示の意味を確認する
+- **変数名・関数名は意味のある名前を付けること。** 1 文字変数で名前付けを回避することを禁止する
+- **新しい定義を作る前に、同等のものがプロジェクト内に既に存在しないか Grep で検索すること**
+- iOS 版の挙動を移すときは、iOS 側の該当ファイルを読んでから実装する（`../deki-roulette-ios/DekiRoulette/`）。仕様の数値（スピンの時間・件数の上限など）と配色は iOS の `Core/Config.swift` / `Design/Theme.swift` の値を使う。
+  iOS の部品の寸法・形（ボタンの形、シートの枠など）は写さず、M3 の部品を使う
 
-- `src/config.ts` — スライス色・スピン時間・項目数上限などのドメイン定数。
-- `src/types.ts` — `Item` 型と、リストの行に出す印の `Mark` 型。
-- `src/items.ts` — 項目の ID 生成とラベル正規化。両画面で共有する。
-- `src/shuffle.ts` — Fisher-Yates と、指定された項目を先頭・末尾へ移す `arrange`。
-- `index.html` / `en/index.html` / `order/index.html` / `en/order/index.html` / `privacy/index.html` / `en/privacy/index.html` — 6 つのエントリ。ページ別・言語別のメタタグはここに書き分ける。
-- `src/i18n.ts` — 日英の文言テーブル、`Locale` / `Page` 型、言語とページから URL への対応。
-- `src/hooks/useRoulette.ts` — 項目・ターゲット・回転・結果のステートとスピンロジック。
-- `src/hooks/useOrder.ts` — 項目・先頭末尾の指定・並べ替え結果のステートと演出時間の計算。
-- `src/hooks/useLongPress.ts` — 長押しでのみ発火するハンドラ束。
-- `src/hooks/useLocaleSuggestion.ts` — ブラウザの言語と表示中の言語のずれの検出。
-- `src/hooks/useReducedMotion.ts` — `prefers-reduced-motion` の購読。
-- `src/App.tsx` — `page` prop で表示するページを選ぶだけ。
-- `src/pages/RoulettePage.tsx` / `src/pages/OrderPage.tsx` — 各画面の組み立て。表示言語は `locale` prop で受け取る。
-- `src/pages/PrivacyPage.tsx` — プライバシーポリシー。`PageFrame` は使わず、見出し・ルーレットへの戻りリンク・言語切替だけを持つ。本文は `i18n.ts` の `privacySections`。
-- `src/main.tsx` — クライアントの入り口。`#root` の中身の有無で hydrate と初回描画を選ぶ。
-- `src/entry-server.tsx` — プリレンダ用に `App` を文字列へ描画する。
-- `scripts/prerender.mjs` — ビルド後に各エントリ HTML の `#root` へ描画結果を差し込む。
-- `src/components/PageFrame.tsx` — 両画面で共通の枠。ヘッダ・言語切替・もう一方のページへの導線・フッターの折りたたみとプライバシーポリシーへのリンク。
-- `src/components/RouletteWheel.tsx` — SVG 描画。回転は CSS `transform` トランジション。
-- `src/components/OrderResult.tsx` — 順位付きの結果。1 件ずつ現れる遅延をここで掛ける。
-- `src/components/CopyResultButton.tsx` — 結果をクリップボードへ書き込むボタンと「コピーしました」の表示。両画面で共有する。
-- `src/components/ItemList.tsx` — 項目の追加・編集・削除・隠しジェスチャの受け口と、印の表示制御。編集は ✎ ボタンから行をその場で入力欄に切り替える（ラベルの単純クリックは何もしない仕様を保つため）。両画面で共有する。
-- `src/components/LocaleSwitch.tsx` — 同じページの別言語 URL へのリンク。
-- `src/components/LocaleNotice.tsx` — 別言語版への誘導リンク。
-- `src/components/AdUnit.tsx` — AdSense の手動広告ユニット 1 枠。スクリプトの読み込みもここで行う。
+## 依存追加の規約
 
-### スピンの仕組み
+新しいライブラリは必ず `gradle/libs.versions.toml` にバージョンとエントリを追加し、`build.gradle.kts` では `libs.*` 経由で参照する。
 
-`useRoulette` の `spin()` が核心ロジック。`targetId` が設定されていればその項目のスライス角に収まるよう回転角を計算し、見た目はランダムでも結果を確定させる。完了検知はホイールの `transitionend`、`SPIN_FALLBACK_MS` のタイマーはバックグラウンドタブ等で発火しない場合の保険。
+- **Kotlin は AGP 9.4.1 内蔵の 2.2.10。** Kotlin 2.2 のコンパイラが読めないライブラリ（POM の `kotlin-stdlib` が 2.4 以上）は入れない。
+  追加・更新の前に POM の `kotlin-stdlib` を確認する（例: kotlinx-serialization は 1.10 以上が 2.3 を要求するため 1.9.0、Hilt は 2.60 以上が 2.3 を要求するため 2.59.2）
+- ショートハンドを使うときは、Gradle キャッシュや公式ドキュメントで実在を確認する
+- 新しい API を使う際は `@Experimental` の有無を確認し、必要な `@OptIn` を付ける
+- Deprecated の警告が出たら、置き換え先を推測しない。ソース（Gradle キャッシュ）で `@Deprecated` の `replaceWith` を読んでから直す
 
-### 並べ替えの仕組み
+## 設計規約
 
-`useOrder` の `shuffleItems()` が `arrange` を呼ぶ。Fisher-Yates で一様にシャッフルしてから、
-指定された項目を先頭・末尾と入れ替える。条件を満たすまで引き直す方式は取らない。指定以外の並びに偏りが出る。
-乱数は `crypto.getRandomValues`。剰余の偏りを避けるため、範囲を割り切れる上限を超えた値は捨てて引き直す。
+> 詳細は `docs/architecture.md`。
 
-結果は `animate-reveal` に `animationDelay` を掛けて 1 件ずつ出す。演出の終了は
-`ORDER_REVEAL_STEP_MS` と `REVEAL_ANIM_MS` から計算したタイマーで、`prefers-reduced-motion` のときは
-遅延を 0 にして一度に出す。
+### モジュールと依存方向
 
-### ステルス前提の UI
+依存は一方向のみ。逆方向・同層跨ぎの参照は禁止。
 
-人に画面を見せながら回す用途を前提に、結果を仕込めることが画面上から分からないよう作ってある。以下は仕様であって、削ったり戻したりしない。
+```
+data:definition  ←  data:impl, domain, feature/*, app
+domain           ←  feature/*, app
+local            ←  data:impl
+navigation       ←  feature/*, app
+ui               ←  feature/*, app
+data:impl        ←  app
+feature/*        ←  app
+```
 
-- 日本語版のトップはブランド名「デキレーレット」を `<title>` / `<h1>` に出す。英語版の `<title>` / `<h1>` は
-  一般語「Roulette」「Random Order」のまま。画面の本文には「当たり」「必ず」等、隠し操作の内容そのものを示唆する語は置かない。
-- 指定は項目の長押し（`LONG_PRESS_MS`）のみ。専用ボタンやツールチップは置かない。単純クリックでは何も起きない。キーボードは OS のキーリピート（`KeyboardEvent.repeat`）を拾う。ルーレットは長押しで当たりの指定と解除、順番決めは長押しのたびに 先頭 → 末尾 → 解除 と回す。
-- 指定中の印はカラードットを塗りからリングに変えるだけ（末尾指定だけ中心にも点を置く）。リストにポインタ／フォーカスがある間と指定直後 `TARGET_HINT_MS` の間しか出さず、演出中と結果表示中は伏せる（`ItemList` の `concealMarks`）。印を伏せている行は `aria-pressed` も指定先の読み上げも出さない。
-- 隠し操作の説明はフッターの折りたたみ内にのみ置き、スピン／並べ替えの開始で自動的に閉じる。
+- `data:definition` はドメインモデルと Repository の interface、`data:impl` は Repository の実装、`domain` は UseCase と計算の関数
+- feature は `data:impl` / `local` / 他の feature に依存しない。Repository は `data:definition` の interface で注入し、実装は Hilt で `app` に集める
+- 計算や複数の手順を含む処理は UseCase を呼ぶ。保存と読み込みだけなら ViewModel から Repository を直接呼ぶ
+- feature 間の遷移は `XxxNavigationEvent` を `app` に返してつなぐ
+- `build.gradle.kts` は convention plugin（`build-logic`）を使う: `deki.common` / `deki.application` / `deki.library` / `deki.hilt` / `deki.feature`。
+  1 回しか使わない組み合わせは plugin にしない
 
-### プリレンダリング
+### Material 3 に従う
 
-クローラに本文を渡すため、ビルド時に React を静的 HTML へ焼き込んで `#root` に入れてある。
-JS が動く前から画面のテキストがすべて HTML にある。
+- **iOS 版をコピーするのではなく、Android のアプリとして作る。** iOS 版から引き継ぐのは機能・仕様（SPEC、ステルスの規約を含む）とデザイントークン（配色など）だけ。
+  部品・レイアウト・操作感は M3 の標準に従い、iOS の部品の見た目や挙動に寄せるために自作の部品を作らない
+- UI は Material 3 のガイドラインと標準コンポーネントに従う。計画書・iOS 版に書かれていない振る舞いでも、M3 が決めているものは省かない
+- 押せる要素は 48×48dp 以上を確保する（M3 の部品を使うか、`minimumInteractiveComponentSize()`）
+- トップレベルのナビゲーションは `NavigationSuiteScaffold`（`material3-adaptive-navigation-suite`）で、ウィンドウの大きさに応じてナビゲーションバー / レールを M3 の基準で切り替える。`NavigationBar` を固定で置かない
 
-- `npm run build` は クライアントビルド → SSR バンドル (`dist-ssr/`) → `scripts/prerender.mjs` の順。焼き込む対象は `prerender.mjs` の `PAGES`。
-- `BUILD_TARGET=ssr` のときは `vite.config.ts` が `cloudflare()` を外す。SSR バンドルは Node で実行するため。
-- 表示言語とページを `window.location.pathname` から読むと SSR で落ちるので、`App` は `locale` と `page` を prop で受け取る。
-  URL が唯一のソースである点は変わらない (`main.tsx` が `localeFromPath` / `pageFromPath` を呼ぶ)。
-- 焼き込むのは画面に出ている文言だけ。ステルス仕様のとおり `details` は閉じたまま、
-  指定中の印 (`aria-pressed`) も出力に含まれない。
-- 誘導リンク (`LocaleNotice`) は閲覧者ごとに変わるので、静的 HTML には出さずマウント後に描画する。
-- ブラウザ API を初回描画で触るフックを足すときは、SSR 側の初期値を用意する
-  (`useReducedMotion` の `getServerSnapshot` が例)。
+### 禁止事項
 
-### ページと言語別 URL
+- **DataSource（local）は Repository を参照してはいけない**
+- **Repository は他の Repository に依存してはいけない**
+- **ドメインモデルを UI 層（ViewModel の公開状態・Screen）で直接使ってはいけない**（UI 専用モデル `XxxUiModel` を定義してマッピングする）
+- **UiState に isLoading や errorMessage を混在させてはいけない**（ViewState / UiState 分離パターンを使う）
+- **当たり・先頭・末尾の指定を Repository に渡したり保存したりしてはいけない**（ViewModel の中だけで持つ。SPEC §12）
+- 下位層に値が必要な場合は、上位層からメソッド引数として渡す
+- コードの配置はモジュールの責務に従う。一箇所でしか使われないコードを利便性を理由に共有モジュールに置かない
 
-ルーレットが `/` と `/en/`、順番決めが `/order/` と `/en/order/`、プライバシーポリシーが `/privacy/` と `/en/privacy/`。6 つとも独立した静的 HTML で、`vite.config.ts` の `build.rollupOptions.input` に並べてある。JS バンドルは共通で、react-router は入れない。
+### ViewState / UiState の分離（全 ViewModel で必須）
 
-- 表示言語もページも URL だけで決まる（`localeFromPath` / `pageFromPath`）。`navigator.language` は表示の決定に使わない。焼き込んだ HTML と画面が食い違わないため。
-- 言語切替とページ間の移動はステートの切替ではなく `<a href>` での遷移。行き先は `PAGE_PATHS` が唯一の定義。言語を切り替えても同じページに留まる。
-- ブラウザの言語が表示中の言語と違うときは、もう一方の言語版へのリンクを最上部に出すだけにする。自動リダイレクトはしない。共有された URL の言語を上書きしてしまう。
-- 誘導リンクは閲覧者ごとに変わるので、マウント後に描画する（静的 HTML には出さない）。
-- どのページも自分自身への `canonical` と、`ja` / `en` / `x-default` の `hreflang` を持つ。`x-default` は同じページの日本語版に向ける。
-- 言語を増やすときに触るのは、`i18n.ts` の `LOCALES` / `PAGE_PATHS` / `translations`、エントリ HTML の追加、`vite.config.ts` の `input`、各ページの `hreflang`、`public/sitemap.xml`、`scripts/prerender.mjs` の `PAGES`。ページを増やすときも同じ 6 か所に加えて `i18n.ts` の `PAGES` / `pageFromPath` を触る。
+```kotlin
+sealed interface ViewState {
+    data object Loading : ViewState
+    data class Error(val message: String) : ViewState
+    data class Success(val uiState: UiState) : ViewState
+}
 
-### デザイントークン
+data class UiState(/* UI 専用モデルのみ */)
+```
 
-配色・書体・アニメーションは `tailwind.config.ts` の `theme.extend` に集約。金色 `gold` は結果表示（順番決めは 1 位）とフォーカスリング、`flare` はスピン・並べ替えの操作専用。指定中の印には専用色を使わず、スライス色をそのまま流用する。`reveal` は両画面で使い回し、キーフレームは足さない。
+- `Loading` は単純に「ローディング中」。呼び出し経緯（初回・再ロード）で振る舞いを変えない
+- UiState / ViewState で管理できる状態を別の StateFlow で新設しない
+- `StateFlow` を `init` で collect して再ロードするときは、初期値の発火を `.drop(1)` で遮断し、二重起動を防ぐテストを書く
 
-### SEO とメタ情報
+### ViewModel の onIntent を Composable にバケツリレーしない（厳守）
 
-公開 URL は `https://roulette.basekeita.com/`。canonical・OGP・sitemap の絶対 URL はこれに揃える。
+- 子 Composable のパラメータに `onIntent: (XxxIntent) -> Unit` や `viewModel: XxxViewModel` を持たせてはいけない
+- ViewModel を保持する Composable は最上位の 1 つ（`XxxScreen` の Route）だけ。子には `onSpinClick: () -> Unit` のような意味のあるコールバックを個別に渡す
 
-検索に載せたい語と、画面に出してはいけない語を分けてある。
+### 条件分岐のコーディング規約
 
-- 日本語版の `<title>` / `og:title` / `twitter:title` は「デキレーレット｜無料で使えるインチキルーレットアプリ」、
-  `<h1>` はブランド名だけの「デキレーレット」。
-- 順番決めの `<title>` は日本語版が「順番決め｜無料のランダム並べ替えツール｜デキレーレット」、`<h1>` は「順番決め」。
-- 英語版の `<title>` / `<h1>` は一般語のみ（「Roulette」「Random Order」「Free」）。ブランド語は `meta[name=description]` と JSON-LD の `alternateName` にだけ置く。
-- どちらの言語でも、隠し操作の手順（長押し）はフッターの折りたたみの外にも meta にもプライバシーポリシーにも書かない。
-- プライバシーポリシーは実装の実態に合わせる。Cookie・ブラウザの保存領域・外部送信・アクセス解析を増減したら `privacySections` と制定日の表記も直す。Cloudflare の Bot Fight Mode・チャレンジ・レート制限ルールなどを有効にすると Cloudflare が Cookie を付けるようになるので、その場合も直す。
-- `public/og.png` は Slack 等のリンク展開で映る可能性があるため、盤面だけの中立な絵にしてある。再生成する場合も仕込みを示唆する要素を入れない。
-- `public/robots.txt` / `public/sitemap.xml` / `public/ads.txt` はビルド時に `dist/` へコピーされる。sitemap は 6 URL すべてを載せ、各 `<url>` に `xhtml:link` で言語の対応関係を書く。
-- JSON-LD は `<script type="application/ld+json">`。データブロックなので CSP の `script-src` には引っかからない。
+- **`when { bool }` 形式の条件分岐を禁止する。** `if / else if / else` に `{}` を付けて書く
+- **`else` 節がない単行ガード `if (cond) return` は許可する**
+- **`else` 節がある `if/else` は必ず `{}` と改行で展開する。** `when` アームの中でも同様
+- **ガード節を複数並べるとき、必ず空行で区切る**
 
-### 広告
+## ステルス前提の UI（仕様であり、削ったり戻したりしない）
 
-Google AdSense の手動ユニットを `PageFrame` に 2 枠置く。フッターの直前のレスポンシブ枠と、`xl` 以上でだけ出す左余白の 160×600 の縦長枠。
+- 指定は行の長押し（600ms）のみ。専用ボタン・メニュー・ユーザー補助のアクションは置かない。
+  長押しは自前の `pointerInput` で受け、**`combinedClickable` や `semantics { onLongClick }` は使わない**（TalkBack のアクションとして見えてしまう）
+- 印は色見本をリングに変えるだけ（末尾は中心に点）。行を押している間と指定直後 1.6 秒しか出さず、演出中・結果表示中・画面キャプチャ中は伏せる。
+  伏せている行には `selected` も `stateDescription` も付けない
+- 隠し操作の説明はフッターの「使い方」内にのみ置き、演出開始で自動的に閉じる
+- 画面本文に「当たり」「必ず」等の語を置かない。コピー・共有の本文に指定の有無を示す情報を入れない
 
-- プライバシーポリシーには広告を出さない。`PrivacyPage` は `PageFrame` を使わないので枠がなく、スクリプトも読まない。
-- `adsbygoogle.js` はエントリ HTML の `<head>` に書かず、`AdUnit` がマウント後に差し込む。広告枠のあるページだけで読むため。
-- 自動広告（アンカー・モバイル全画面を含む）は AdSense 管理画面でオフにしておく。挿入位置を制御できず、プリレンダした `#root` の中へ入ると hydration が崩れる。ページ間の移動で全画面広告が出るのもステルス前提の使い方を邪魔する。
-- パブリッシャー ID と広告ユニット ID は `src/config.ts` の `ADSENSE_CLIENT` / `AD_SLOTS`。`AD_SLOTS` が `null` の枠は描画せず、すべて `null` なら広告リクエストは一切飛ばない。`public/ads.txt` と、広告のある 4 つのエントリ HTML の `meta[name=google-adsense-account]`（サイト所有の確認用）の ID もこれと揃える。
-- 非表示の枠（`display:none`）へ push すると失敗してその枠は埋まらなくなるので、`AdUnit` は幅が付いてから push する。
+## スピンの仕組み（Android 版の要点）
 
-### セキュリティヘッダ
-
-`public/_headers` に CSP と各種セキュリティヘッダを定義。ビルド時に `dist/_headers` へコピーされ、Cloudflare の静的アセット配信が適用する。外部スクリプトを追加する場合は `script-src` / `connect-src` の更新が必要。AdSense のため `script-src` / `frame-src` / `connect-src` に Google の広告ドメインを並べ、広告画像の配信元は固定できないので `img-src` は `https:` を許可している。
-
-### パスエイリアス
-
-`vite.config.ts` で `@` → `./src` のエイリアスが設定されている。
-
-### デプロイ
-
-`main` ブランチへの push で Cloudflare Pages が自動ビルド＆デプロイ（Connect to Git で連携）。
+- 結果と止まる累積角は開始時に `DecideSpinUseCase` が決める（`RouletteMath.nextRotation`）。回転音・触覚の時刻も同じ曲線（`CubicBezierCurve`）から先に求める
+- 回転は Screen の `Animatable` が `tween(4500, CubicBezierEasing)` で行う。開発者オプションのアニメーション倍率で長さが変わると音・触覚とずれるため、
+  `MotionDurationScale(1f)` の下で回す。完了の保険（5.1 秒）は ViewModel が持つ
+- reduceMotion は「アニメーションを削除」（`ANIMATOR_DURATION_SCALE == 0`）で判定し、回さずに 0.32 秒後に完了扱いにする

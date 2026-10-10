@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">DekiRoulette</string>
+    <string name="tab_roulette">Roulette</string>
+    <string name="tab_order">Random order</string>
+</resources>

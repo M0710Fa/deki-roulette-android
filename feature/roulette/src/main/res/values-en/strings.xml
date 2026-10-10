@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="roulette_title">DekiRoulette</string>
+    <string name="roulette_tagline">Can\'t decide? Spin.</string>
+    <string name="roulette_spin">Spin</string>
+    <string name="roulette_spinning">Spinning…</string>
+    <!-- 結果のコピーの見出し（「結果: ラーメン」）と、結果が出たときの読み上げ -->
+    <string name="roulette_result_heading">Result</string>
+    <string name="roulette_result_announce">The result is %1$s</string>
+
+    <!-- フッター。隠し操作の説明は「使い方」の中にだけ置く -->
+    <string name="roulette_help_basic">Add your options and press Spin. You can register between 2 and 24 items. Paste text with one entry per line to add them all at once.</string>
+    <string name="roulette_help_aim_title">When the result is already decided</string>
+    <string name="roulette_help_aim">Press and hold an item for about 0.6 seconds and it will be the one the next spin lands on. Hold again to clear it.</string>
+    <string name="roulette_help_aim_stealth">The mark only appears while you are touching an item and right after you set it. It disappears while spinning and while the result is up, and stays hidden while the screen is being shared or recorded. This section closes itself the moment you press Spin.</string>
+    <string name="roulette_help_aim_random">With nothing marked, the result really is random.</string>
+    <string name="roulette_use_cases">Picking who organizes the party, choosing where to have lunch, setting the running order, assigning chores, forfeits, or standing in for a coin toss. No sign-up, free to use.</string>
+</resources>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 項目リスト -->
+    <string name="item_list_title">Items</string>
+    <string name="item_list_add_placeholder">Add items (one per line)</string>
+    <string name="item_list_add_button">Add</string>
+    <string name="item_list_empty">Add an item to get started</string>
+    <string name="item_list_need_more_items">Add at least 2 items</string>
+    <string name="item_list_at_capacity">You can add up to %1$d items</string>
+    <string name="item_list_count">%1$d / %2$d</string>
+    <string name="item_list_remove_accessibility_label">Remove %1$s</string>
+    <string name="item_list_remove_all">Remove all</string>
+    <string name="item_list_remove_all_confirm_title">Remove all items?</string>
+    <plurals name="item_list_add_items_button">
+        <item quantity="one">Add %1$d item</item>
+        <item quantity="other">Add %1$d items</item>
+    </plurals>
+    <string name="item_list_duplicate_notice">Duplicate name</string>
+    <string name="item_list_removed_toast">Removed %1$s</string>
+    <string name="item_list_undo">Undo</string>
+
+    <!-- 同名の項目を追加するときの確認。追加は止めず、確かめるだけ -->
+    <string name="duplicate_add_title">An item with the same name exists</string>
+    <string name="duplicate_add_message">Add it anyway?</string>
+    <string name="duplicate_add_confirm">Add</string>
+    <string name="duplicate_add_cancel">Don’t Add</string>
+
+    <!-- 結果のコピー・共有 -->
+    <string name="result_copy">Copy result</string>
+    <string name="result_copied">Copied</string>
+    <string name="result_share">Share</string>
+    <string name="result_app_name">DekiRoulette</string>
+
+    <!-- 印の状態（行の読み上げ）。当たりの指定には付けない -->
+    <string name="mark_first">First</string>
+    <string name="mark_last">Last</string>
+
+    <!-- 見出しのメニュー（保存したリスト） -->
+    <string name="list_menu_label">List Options</string>
+    <string name="list_menu_save">Save This List</string>
+    <string name="list_menu_load">Load a Saved List</string>
+    <string name="list_menu_manage">Manage Saved Lists</string>
+    <string name="list_menu_no_saved_lists">No Saved Lists</string>
+    <plurals name="saved_list_item_count">
+        <item quantity="one">%1$d item</item>
+        <item quantity="other">%1$d items</item>
+    </plurals>
+    <string name="save_list_title">Save List As</string>
+    <string name="save_list_name_placeholder">List name</string>
+    <string name="save_list_message">Saves the current items under this name. You can load it from either Roulette or Random Order.</string>
+    <string name="saved_lists_full_title">Can’t Save More Lists</string>
+    <string name="saved_lists_full_message">You can save up to %1$d lists. Delete one from “Manage Saved Lists” first.</string>
+
+    <!-- 両画面の枠（ヘッダとフッター） -->
+    <string name="page_settings">Settings</string>
+    <string name="page_help_title">How to use</string>
+    <string name="page_use_cases_title">Good for</string>
+    <string name="page_notice_title">Disclaimer</string>
+    <string name="page_notice">We are not responsible for any damages arising from the use of this app.</string>
+
+    <!-- 共通 -->
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="close">Close</string>
+    <string name="back">Back</string>
+</resources>

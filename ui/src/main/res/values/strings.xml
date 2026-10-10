@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 項目リスト -->
+    <string name="item_list_title">項目</string>
+    <string name="item_list_add_placeholder">項目を入力（改行で複数追加）</string>
+    <string name="item_list_add_button">追加</string>
+    <string name="item_list_empty">まずは項目を追加してください</string>
+    <string name="item_list_need_more_items">項目をあと少なくとも 2 つ追加してください</string>
+    <string name="item_list_at_capacity">項目は %1$d 個までです</string>
+    <string name="item_list_count">%1$d / %2$d</string>
+    <string name="item_list_remove_accessibility_label">%1$s を削除</string>
+    <string name="item_list_remove_all">すべて削除</string>
+    <string name="item_list_remove_all_confirm_title">すべての項目を削除しますか？</string>
+    <plurals name="item_list_add_items_button">
+        <item quantity="other">%1$d 件追加</item>
+    </plurals>
+    <string name="item_list_duplicate_notice">同じ名前の項目があります</string>
+    <string name="item_list_removed_toast">%1$s を削除しました</string>
+    <string name="item_list_undo">元に戻す</string>
+
+    <!-- 同名の項目を追加するときの確認。追加は止めず、確かめるだけ -->
+    <string name="duplicate_add_title">同じ名前の項目があります</string>
+    <string name="duplicate_add_message">このまま追加しますか？</string>
+    <string name="duplicate_add_confirm">追加する</string>
+    <string name="duplicate_add_cancel">やめる</string>
+
+    <!-- 結果のコピー・共有 -->
+    <string name="result_copy">結果をコピー</string>
+    <string name="result_copied">コピーしました</string>
+    <string name="result_share">共有</string>
+    <string name="result_app_name">デキレーレット</string>
+
+    <!-- 印の状態（行の読み上げ）。当たりの指定には付けない -->
+    <string name="mark_first">先頭</string>
+    <string name="mark_last">末尾</string>
+
+    <!-- 見出しのメニュー（保存したリスト） -->
+    <string name="list_menu_label">リストの操作</string>
+    <string name="list_menu_save">このリストを保存</string>
+    <string name="list_menu_load">保存したリストから読み込む</string>
+    <string name="list_menu_manage">保存したリストの管理</string>
+    <string name="list_menu_no_saved_lists">保存したリストはありません</string>
+    <plurals name="saved_list_item_count">
+        <item quantity="other">%1$d 件</item>
+    </plurals>
+    <string name="save_list_title">リストに名前を付けて保存</string>
+    <string name="save_list_name_placeholder">リストの名前</string>
+    <string name="save_list_message">いまの項目をこの名前で保存します。ルーレットと順番決めのどちらからでも読み込めます。</string>
+    <string name="saved_lists_full_title">これ以上保存できません</string>
+    <string name="saved_lists_full_message">保存できるリストは %1$d 件までです。「保存したリストの管理」から不要なリストを削除してください。</string>
+
+    <!-- 両画面の枠（ヘッダとフッター） -->
+    <string name="page_settings">設定</string>
+    <string name="page_help_title">使い方</string>
+    <string name="page_use_cases_title">こんなときに</string>
+    <string name="page_notice_title">注意事項</string>
+    <string name="page_notice">本アプリの利用により生じたいかなる損害についても責任を負いません。</string>
+
+    <!-- 共通 -->
+    <string name="save">保存</string>
+    <string name="cancel">キャンセル</string>
+    <string name="close">閉じる</string>
+    <string name="back">戻る</string>
+</resources>
