@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://roulette.basekeita.com/sitemap.xml
