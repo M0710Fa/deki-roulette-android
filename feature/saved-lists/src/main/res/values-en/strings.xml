@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="saved_lists_title">Saved Lists</string>
+    <string name="saved_lists_empty_hint">Choose “Save This List” from the menu next to the item list heading, and it will appear here.</string>
+    <string name="saved_lists_rename_title">Rename List</string>
+    <string name="saved_lists_rename">Rename</string>
+    <string name="saved_lists_rename_accessibility_label">Rename %1$s</string>
+    <string name="saved_lists_row_menu_label">Options for %1$s</string>
+    <string name="saved_lists_delete">Delete</string>
+</resources>

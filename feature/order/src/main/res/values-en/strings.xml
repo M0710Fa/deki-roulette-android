@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="order_title">Random Order</string>
+    <string name="order_tagline">One shuffle settles the running order.</string>
+    <string name="order_shuffle">Shuffle</string>
+    <string name="order_shuffling">Shuffling…</string>
+    <string name="order_result_placeholder">Shuffle to see the running order</string>
+    <string name="order_rank_accessibility_label">Position %1$d</string>
+
+    <!-- フッター。隠し操作の説明は「使い方」の中にだけ置く -->
+    <string name="order_help_basic">Add your entries and press Shuffle. You can register between 2 and 24 items. Paste text with one entry per line to add them all at once.</string>
+    <string name="order_help_aim_title">When a position is already decided</string>
+    <string name="order_help_aim">Press and hold an item for about 0.6 seconds to cycle it through first, last, and off. Only one item can hold each position, so marking another one clears the previous mark.</string>
+    <string name="order_help_aim_stealth">The mark only appears while you are touching an item and right after you set it. It disappears while shuffling and while the result is up, and stays hidden while the screen is being shared or recorded. This section closes itself the moment you press Shuffle.</string>
+    <string name="order_help_aim_random">Everything you have not marked is always shuffled at random. With nothing marked, the order really is random.</string>
+    <string name="order_use_cases">Setting the running order for talks and demos, rotating who hosts, assigning chores or reviews, rearranging seats, or standing in for drawing lots. No sign-up, free to use.</string>
+</resources>

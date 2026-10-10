@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_title">Settings</string>
+
+    <!-- 見出しだけを置く。何に使うかの説明は置かない（長押しの存在を示唆しないため） -->
+    <string name="settings_haptics_title">Haptic Feedback</string>
+
+    <string name="settings_sound_title">Sound</string>
+    <string name="settings_sound_toggle">Spin sound</string>
+    <string name="settings_sound_note">It stays quiet while your phone is set to vibrate or silent.</string>
+
+    <string name="settings_roulette_advanced_title">Roulette details</string>
+    <string name="settings_glow_style_title">Glow color</string>
+    <string name="settings_glow_style_white">White</string>
+    <string name="settings_glow_style_slice">Color of the stopped slice</string>
+    <string name="settings_glow_style_rainbow">Rainbow</string>
+
+    <string name="settings_reset_items_title">Reset Items</string>
+    <string name="settings_reset_items_description">Your item lists are saved automatically and restored the next time you open the app. Use these to go back to the initial items.</string>
+    <string name="settings_reset_items_roulette">Reset Roulette Items</string>
+    <string name="settings_reset_items_order">Reset Random Order Items</string>
+    <string name="settings_reset_items_confirm">Reset the items of “%1$s” to the initial ones?</string>
+    <string name="settings_reset_items_message">The current items will be removed and replaced with the initial ones.</string>
+    <string name="settings_reset_items_action">Reset</string>
+    <string name="settings_screen_roulette">Roulette</string>
+    <string name="settings_screen_order">Random order</string>
+
+    <string name="settings_copyright_title">Copyright</string>
+    <string name="settings_copyright_owner">The copyright of this app belongs to basekeita, Takumi Muraishi (@mrs1669), and M0710Fa.</string>
+    <string name="settings_copyright">© 2026 basekeita, Takumi Muraishi, M0710Fa</string>
+</resources>

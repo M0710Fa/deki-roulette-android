@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="default_items_roulette">
+        <item>Pizza</item>
+        <item>Burger</item>
+        <item>Sushi</item>
+        <item>Tacos</item>
+    </string-array>
+    <string-array name="default_items_order">
+        <item>Team A</item>
+        <item>Team B</item>
+        <item>Team C</item>
+        <item>Team D</item>
+    </string-array>
+</resources>

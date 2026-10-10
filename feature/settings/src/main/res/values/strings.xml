@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_title">設定</string>
+
+    <!-- 見出しだけを置く。何に使うかの説明は置かない（長押しの存在を示唆しないため） -->
+    <string name="settings_haptics_title">触覚フィードバック</string>
+
+    <string name="settings_sound_title">効果音</string>
+    <string name="settings_sound_toggle">ルーレットの回転音</string>
+    <string name="settings_sound_note">マナーモードやサイレントモードのときは鳴りません。</string>
+
+    <string name="settings_roulette_advanced_title">ルーレットの詳細設定</string>
+    <string name="settings_glow_style_title">光彩の色</string>
+    <string name="settings_glow_style_white">白</string>
+    <string name="settings_glow_style_slice">止まったスライスの色</string>
+    <string name="settings_glow_style_rainbow">虹色</string>
+
+    <string name="settings_reset_items_title">項目を初期状態に戻す</string>
+    <string name="settings_reset_items_description">項目リストは自動で保存され、次に開いたときも残ります。最初の項目に戻したいときはここから戻せます。</string>
+    <string name="settings_reset_items_roulette">ルーレットの項目を戻す</string>
+    <string name="settings_reset_items_order">順番決めの項目を戻す</string>
+    <string name="settings_reset_items_confirm">「%1$s」の項目を初期状態に戻しますか？</string>
+    <string name="settings_reset_items_message">いまの項目は消えて、最初の項目に置き換わります。</string>
+    <string name="settings_reset_items_action">初期状態に戻す</string>
+    <string name="settings_screen_roulette">ルーレット</string>
+    <string name="settings_screen_order">順番決め</string>
+
+    <string name="settings_copyright_title">著作権</string>
+    <string name="settings_copyright_owner">本アプリの著作権は basekeita、Takumi Muraishi (@mrs1669)、M0710Fa に帰属します。</string>
+    <string name="settings_copyright">© 2026 basekeita, Takumi Muraishi, M0710Fa</string>
+</resources>

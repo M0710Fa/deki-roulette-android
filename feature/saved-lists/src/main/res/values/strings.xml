@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="saved_lists_title">保存したリスト</string>
+    <string name="saved_lists_empty_hint">項目リストの見出しにあるメニューから「このリストを保存」を選ぶと、ここに並びます。</string>
+    <string name="saved_lists_rename_title">リストの名前を変更</string>
+    <string name="saved_lists_rename">変更</string>
+    <string name="saved_lists_rename_accessibility_label">%1$s の名前を変更</string>
+    <string name="saved_lists_row_menu_label">%1$s の操作</string>
+    <string name="saved_lists_delete">削除</string>
+</resources>

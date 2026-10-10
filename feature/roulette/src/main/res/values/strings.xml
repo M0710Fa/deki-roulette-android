@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="roulette_title">デキレーレット</string>
+    <string name="roulette_tagline">迷ったら、まわす。</string>
+    <string name="roulette_spin">スピン</string>
+    <string name="roulette_spinning">スピン中…</string>
+    <!-- 結果のコピーの見出し（「結果: ラーメン」）と、結果が出たときの読み上げ -->
+    <string name="roulette_result_heading">結果</string>
+    <string name="roulette_result_announce">結果は %1$s です</string>
+
+    <!-- フッター。隠し操作の説明は「使い方」の中にだけ置く -->
+    <string name="roulette_help_basic">項目を追加してスピンを押すだけです。項目は 2 個から 24 個まで登録できます。改行区切りの文章を貼り付けると、まとめて追加できます。</string>
+    <string name="roulette_help_aim_title">結果を決めておきたいとき</string>
+    <string name="roulette_help_aim">項目を 0.6 秒ほど長押しすると、その項目が次のスピンで選ばれます。もう一度長押しすると解除されます。</string>
+    <string name="roulette_help_aim_stealth">指定した印は、項目に触れている間と指定した直後だけ出ます。スピン中と結果表示中は消え、画面を共有・収録している間も出ません。この説明もスピンを押すと自動で閉じます。</string>
+    <string name="roulette_help_aim_random">何も指定しなければ、結果は本当にランダムです。</string>
+    <string name="roulette_use_cases">飲み会の幹事決め、ランチのお店選び、発表の順番決め、掃除当番、罰ゲーム、じゃんけんやあみだくじの代わりに。登録不要で無料で使えます。</string>
+</resources>
