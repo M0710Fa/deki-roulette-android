@@ -23,7 +23,7 @@ concurrency:
   cancel-in-progress: true
 
 # 外部のアクションは tag ではなくコミット SHA で固定する（tag は付け替えられる）。
-# 更新は .github/dependabot.yml が SHA とコメントの版をそろえて PR にする
+# TODO: .github/dependabot.yml を置き、SHA とコメントの版をそろえた更新を PR にさせる。それまでは手で更新する
 jobs:
   build:
     name: ${{ github.ref_name }}
