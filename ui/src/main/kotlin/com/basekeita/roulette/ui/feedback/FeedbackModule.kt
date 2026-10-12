@@ -9,17 +9,17 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 internal abstract class FeedbackModule {
     @Binds
-    abstract fun bindHapticPlayer(impl: HapticPlayerImpl): HapticPlayer
+    abstract fun bindsHapticPlayer(impl: HapticPlayerImpl): HapticPlayer
 
     @Binds
-    abstract fun bindSpinSoundPlayer(impl: SpinSoundPlayerImpl): SpinSoundPlayer
+    abstract fun bindsSpinSoundPlayer(impl: SpinSoundPlayerImpl): SpinSoundPlayer
 
     @Binds
-    abstract fun bindScreenCaptureMonitor(impl: ScreenCaptureMonitorImpl): ScreenCaptureMonitor
+    abstract fun bindsScreenCaptureMonitor(impl: ScreenCaptureMonitorImpl): ScreenCaptureMonitor
 
     @Binds
-    abstract fun bindReduceMotionMonitor(impl: ReduceMotionMonitorImpl): ReduceMotionMonitor
+    abstract fun bindsReduceMotionMonitor(impl: ReduceMotionMonitorImpl): ReduceMotionMonitor
 
     @Binds
-    abstract fun bindResultSharer(impl: ResultSharerImpl): ResultSharer
+    abstract fun bindsResultSharer(impl: ResultSharerImpl): ResultSharer
 }

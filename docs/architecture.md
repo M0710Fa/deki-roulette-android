@@ -62,7 +62,7 @@ feature/
   order/                  順番決め画面
   settings/               設定（ルーレットの詳細設定はシートの中のページ）
   saved-lists/            保存したリストの管理画面
-ui/                       共通 UI（テーマ・トークン、atomic design の部品、ViewData、UI 用の純粋関数、触覚・音・キャプチャ検知）
+ui/                       共通 UI（テーマ・トークン、atomic design の部品、UI 専用モデル（UiModel）、UI 用の純粋関数、触覚・音・キャプチャ検知）
 navigation/               ルート定義（@Serializable の NavKey）
 domain/                   UseCase と、UseCase が使う計算の関数
 data/
@@ -151,7 +151,7 @@ data:definition（モデル・Repository interface）  ←  data:impl（Reposito
 
 - `spin/`: `DecideSpinUseCase`（結果・止まる累積角・曲線・回転音と触覚の時刻を `SpinPlan` で返す）と、それが使う
   `RouletteMath`、`CubicBezierCurve`、`SpinTicks`、`FlickSpin`（角速度から周回数・向き・曲線を決める部分）、`SpinOutcome`、`SpinConfig`（スピンの数値）
-- `order/`: `ArrangeOrderUseCase`（並べ替え・演出の時間・触覚の時刻を `OrderPlan` で返す）と、それが使う `Shuffler`、`RevealTiming`
+- `order/`: `ShuffleOrderUseCase`（並べ替え・演出の時間・触覚の時刻を `OrderPlan` で返す）と、それが使う `Shuffler`、`RevealTiming`
 - `haptic/`: `HapticSchedule`（スピンの境目は `SpinTicks` と同じ式、順番決めは行が現れる時刻）
 - `item/`: `AddItemsUseCase`（追加できた件数を返す）、`RemoveItemUseCase`（`RemovedItem` を返す）、`RestoreItemUseCase`。2 画面で同じ処理
 - 乱数は `kotlin.random.Random` をコンストラクタで受ける。既定の `SecureRandom().asKotlinRandom()` は `app` の Hilt モジュールで提供する。テストでは `Random(seed)`
@@ -182,7 +182,7 @@ data:definition（モデル・Repository interface）  ←  data:impl（Reposito
   `DekiTheme`（Material の部品の色もアプリのトークンで上書きする）、`DekiTypography`（iOS のテキストスタイルの sp）、`DekiLayout`、
   `DekiMotion`（アニメーション。iOS の `spring(duration:bounce:)` は減衰比 `1 - bounce`・硬さ `(2π / duration)²` に置き換える）、`DekiStopEmphasis`、
   `sliceColor(at,count)` / `DekiColorScheme.sliceAccent(at,count)`、`SlicePalette`
-- `component/`（atomic design）: `atom/`・`molecules/`・`organisms/`・`template/`
+- `component/`（atomic design）: `atoms/`・`molecules/`・`organisms/`・`templates/`
   - `ItemList`（organisms）は表示と一時的な状態（入力中の文字、押している行の数、指定直後の表示、ダイアログ、
     元に戻すの対象）だけを持つ。項目・指定・保存したリストは画面から受け取り、操作はコールバックで返す
   - 入力は改行で行に分けて正規化し（`ItemLabelInput.splitLines`）、まとめて `onAdd` に渡す。同名があれば追加の前に確かめる（追加は止めない）
@@ -194,16 +194,16 @@ data:definition（モデル・Repository interface）  ←  data:impl（Reposito
     長押しが成立した操作ではスワイプを受けない
   - `ResultActions`（molecules）: 結果の下の「結果をコピー」と「共有」。本文は `ResultText` で組み立て、コピー・共有そのものは画面のコールバックで ViewModel に渡す。
     見た目のカプセルは小さいまま、`minimumInteractiveComponentSize()` で押せる範囲を 48dp 取る（領域の高さも 48dp）
-- `viewdata/`: 両画面で使う UI 専用モデル（`ItemUiModel`、`MarkViewData`、`SavedListSummaryUiModel`、`ItemListLimits`）。
+- `uimodel/`: 両画面で使う UI 専用モデル（`ItemUiModel`、`MarkUiModel`、`SavedListSummaryUiModel`、`ItemListLimits`）。
   ui は `data:definition` に依存しないので、件数や文字数の上限は `ItemListLimits` で画面から渡す
 - `rule/`: UI 用の純粋関数（`WheelDrag`、`WheelLabel`、`ResultBand`、`MarkVisibility`、`TypeLayout`、`ItemLabelInput`）
   - `TypeLayout`: `fontScale >= 1.5` をアクセシビリティサイズとし、項目リストと順番の結果行のラベルを 2 行まで許す・順番決めのコピーボタンの固定高さを最小高さに緩める
 - `modifier/`: `revealOnAppear`（結果が現れる演出。`Modifier.Node` で作り、出し直すときは `key` で作り直す）
-- `component/template/PageFrame`: 両画面の枠（`Scaffold` の中に、ヘッダ・本文・フッターの折りたたみ 3 つ。演出開始で「使い方」だけ閉じる。下端に Snackbar）
-- `component/template/AdaptiveStack`: 両画面の本文の並べ方。ウィンドウの幅が 600dp 以上（`isExpandedWidth()`、`LocalWindowInfo.containerDpSize`）なら
+- `component/templates/PageFrame`: 両画面の枠（`Scaffold` の中に、ヘッダ・本文・フッターの折りたたみ 3 つ。演出開始で「使い方」だけ閉じる。下端に Snackbar）
+- `component/templates/AdaptiveStack`: 両画面の本文の並べ方。ウィンドウの幅が 600dp 以上（`isExpandedWidth()`、`LocalWindowInfo.containerDpSize`）なら
   盤面（結果）と項目リストを横に並べ、上下は中央でそろえる。項目リストの幅は 2 列の均等割りと 360dp の小さいほうで、残りを盤面側に渡す
   （iOS の `HStack` と同じ配分）。それ以外は縦に積む
-- `component/template/SheetFrame`: ボトムシートで出す画面（設定・詳細設定・保存したリストの管理）の枠。見出しの `TopAppBar` と中身。
+- `component/templates/SheetFrame`: ボトムシートで出す画面（設定・詳細設定・保存したリストの管理）の枠。見出しの `TopAppBar` と中身。
   シートは下げる・外側を押す・戻る操作で閉じるので「閉じる」ボタンは置かない。シートの中で次のページに進んでいるときは戻るボタンを出す
 - 両画面の項目リストと結果で使う純粋関数: `DuplicateLabels`（同名の判定）、入力欄の整形（iOS の `ItemLabel.splitLines` / `clampLines`）、`ResultText`（コピー・共有の本文）
 - `feedback/`: `HapticPlayer`、`SpinSoundPlayer`（波形を焼く `ClickTrack`、素材を読む `WavDecoder` を含む）、`ScreenCaptureMonitor`、`ReduceMotionMonitor`、
@@ -215,12 +215,12 @@ data:definition（モデル・Repository interface）  ←  data:impl（Reposito
 ### feature/*
 
 ```
-feature/<name>/src/main/java/com/basekeita/roulette/feature/<name>/
+feature/<name>/src/main/kotlin/com/basekeita/roulette/feature/<name>/
   <Name>Screen.kt              Route（hiltViewModel を持つ唯一の Composable）と UI
   <Name>ViewModel.kt           @HiltViewModel。ViewState / UiState をこのファイル内に定義
   <Name>Navigation.kt          EntryProviderScope<NavKey>.<name>Entry(onNavigationEvent)
   <Name>NavigationEvent.kt     sealed interface
-  viewdata/                    この画面専用の UiModel
+  uimodel/                     この画面専用の UiModel
   ui/molecules|organisms/      この画面専用の部品
 ```
 

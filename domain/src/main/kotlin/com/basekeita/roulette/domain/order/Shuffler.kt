@@ -10,7 +10,7 @@ object Shuffler {
      * 一様にシャッフル（標準ライブラリの `shuffled` は Fisher-Yates）してから、指定された項目を目的の位置と入れ替える。
      * 条件を満たすまで引き直す方式は、指定以外の並びに偏りを持ち込む。
      */
-    fun arrange(
+    fun shuffle(
         items: List<Item>,
         firstId: UUID?,
         lastId: UUID?,

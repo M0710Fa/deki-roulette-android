@@ -15,7 +15,7 @@
         <item quantity="other">%1$d 件追加</item>
     </plurals>
     <string name="item_list_duplicate_notice">同じ名前の項目があります</string>
-    <string name="item_list_removed_toast">%1$s を削除しました</string>
+    <string name="item_list_removed_snackbar">%1$s を削除しました</string>
     <string name="item_list_undo">元に戻す</string>
 
     <!-- 同名の項目を追加するときの確認。追加は止めず、確かめるだけ -->

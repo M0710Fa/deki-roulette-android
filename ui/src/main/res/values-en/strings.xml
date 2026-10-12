@@ -16,7 +16,7 @@
         <item quantity="other">Add %1$d items</item>
     </plurals>
     <string name="item_list_duplicate_notice">Duplicate name</string>
-    <string name="item_list_removed_toast">Removed %1$s</string>
+    <string name="item_list_removed_snackbar">Removed %1$s</string>
     <string name="item_list_undo">Undo</string>
 
     <!-- 同名の項目を追加するときの確認。追加は止めず、確かめるだけ -->
