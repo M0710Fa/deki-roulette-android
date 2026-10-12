@@ -26,6 +26,6 @@
     <string name="settings_screen_order">Random order</string>
 
     <string name="settings_copyright_title">Copyright</string>
-    <string name="settings_copyright_owner">The copyright of this app belongs to basekeita, Takumi Muraishi (@mrs1669), and M0710Fa.</string>
-    <string name="settings_copyright">© 2026 basekeita, Takumi Muraishi, M0710Fa</string>
+    <string name="settings_copyright_owner">The copyright of this app belongs to basekeita, Takumi Muraishi (@mrs1669), M0710Fa, and yuhei-yama.</string>
+    <string name="settings_copyright">© 2026 basekeita, Takumi Muraishi, M0710Fa, yuhei-yama</string>
 </resources>

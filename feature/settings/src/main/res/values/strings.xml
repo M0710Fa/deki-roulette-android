@@ -26,6 +26,6 @@
     <string name="settings_screen_order">順番決め</string>
 
     <string name="settings_copyright_title">著作権</string>
-    <string name="settings_copyright_owner">本アプリの著作権は basekeita、Takumi Muraishi (@mrs1669)、M0710Fa に帰属します。</string>
-    <string name="settings_copyright">© 2026 basekeita, Takumi Muraishi, M0710Fa</string>
+    <string name="settings_copyright_owner">本アプリの著作権は basekeita、Takumi Muraishi (@mrs1669)、M0710Fa、yuhei-yama に帰属します。</string>
+    <string name="settings_copyright">© 2026 basekeita, Takumi Muraishi, M0710Fa, yuhei-yama</string>
 </resources>
