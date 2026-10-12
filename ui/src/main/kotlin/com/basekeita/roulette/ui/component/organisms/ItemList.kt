@@ -46,7 +46,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.basekeita.roulette.ui.R
-import com.basekeita.roulette.ui.component.atom.DashedBorderBox
+import com.basekeita.roulette.ui.component.atoms.DashedBorderBox
 import com.basekeita.roulette.ui.component.molecules.AddItemForm
 import com.basekeita.roulette.ui.component.molecules.ItemRow
 import com.basekeita.roulette.ui.rule.DuplicateLabels
@@ -55,10 +55,10 @@ import com.basekeita.roulette.ui.rule.MarkVisibility
 import com.basekeita.roulette.ui.theme.DekiTheme
 import com.basekeita.roulette.ui.theme.DekiTypography
 import com.basekeita.roulette.ui.theme.sliceAccent
-import com.basekeita.roulette.ui.viewdata.ItemListLimits
-import com.basekeita.roulette.ui.viewdata.ItemUiModel
-import com.basekeita.roulette.ui.viewdata.MarkViewData
-import com.basekeita.roulette.ui.viewdata.SavedListSummaryUiModel
+import com.basekeita.roulette.ui.uimodel.ItemListLimits
+import com.basekeita.roulette.ui.uimodel.ItemUiModel
+import com.basekeita.roulette.ui.uimodel.MarkUiModel
+import com.basekeita.roulette.ui.uimodel.SavedListSummaryUiModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withTimeoutOrNull
 import java.util.UUID
@@ -105,7 +105,7 @@ private data class PendingRemoval(
 @Composable
 fun ItemList(
     items: List<ItemUiModel>,
-    marks: Map<UUID, MarkViewData>,
+    marks: Map<UUID, MarkUiModel>,
     savedLists: List<SavedListSummaryUiModel>,
     limits: ItemListLimits,
     busy: Boolean,
@@ -154,7 +154,7 @@ fun ItemList(
         pendingRemoval = null
         snackbarHostState.currentSnackbarData?.dismiss()
     }
-    val removedMessage = pendingRemoval?.let { removed -> stringResource(R.string.item_list_removed_toast, removed.label) }
+    val removedMessage = pendingRemoval?.let { removed -> stringResource(R.string.item_list_removed_snackbar, removed.label) }
     val undoLabel = stringResource(R.string.item_list_undo)
     val currentOnUndoRemove by rememberUpdatedState(onUndoRemove)
 
@@ -663,7 +663,7 @@ private fun ItemListPreview() {
     DekiTheme {
         ItemList(
             items = items,
-            marks = mapOf(items[1].id to MarkViewData.TARGET),
+            marks = mapOf(items[1].id to MarkUiModel.TARGET),
             savedLists = emptyList(),
             limits = previewLimits,
             busy = false,

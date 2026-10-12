@@ -37,13 +37,13 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.basekeita.roulette.ui.R
-import com.basekeita.roulette.ui.component.atom.MarkDot
+import com.basekeita.roulette.ui.component.atoms.MarkDot
 import com.basekeita.roulette.ui.rule.TypeLayout
 import com.basekeita.roulette.ui.theme.DekiLayout
 import com.basekeita.roulette.ui.theme.DekiTheme
 import com.basekeita.roulette.ui.theme.DekiTypography
-import com.basekeita.roulette.ui.viewdata.ItemUiModel
-import com.basekeita.roulette.ui.viewdata.MarkViewData
+import com.basekeita.roulette.ui.uimodel.ItemUiModel
+import com.basekeita.roulette.ui.uimodel.MarkUiModel
 import java.util.UUID
 
 /** 指定の隠しジェスチャ。短すぎると通常のタップで誤爆する。 */
@@ -71,7 +71,7 @@ private val duplicateIconSize = 12.dp
 fun ItemRow(
     item: ItemUiModel,
     color: Color,
-    mark: MarkViewData?,
+    mark: MarkUiModel?,
     busy: Boolean,
     onPressingChange: (Boolean) -> Unit,
     onLongPress: () -> Unit,
@@ -125,7 +125,7 @@ fun ItemRow(
 private fun ItemRowContent(
     item: ItemUiModel,
     color: Color,
-    mark: MarkViewData?,
+    mark: MarkUiModel?,
     markStateDescription: String?,
     borderColor: Color,
     busy: Boolean,
@@ -221,10 +221,10 @@ private fun DuplicateNotice() {
 
 /** 印の状態の読み上げ。当たりの指定には付けない（選択中であることだけを伝える）。 */
 @Composable
-private fun markStateDescription(mark: MarkViewData?): String? {
-    if (mark == MarkViewData.FIRST) return stringResource(R.string.mark_first)
+private fun markStateDescription(mark: MarkUiModel?): String? {
+    if (mark == MarkUiModel.FIRST) return stringResource(R.string.mark_first)
 
-    if (mark == MarkViewData.LAST) return stringResource(R.string.mark_last)
+    if (mark == MarkUiModel.LAST) return stringResource(R.string.mark_last)
 
     return null
 }
@@ -294,7 +294,7 @@ private fun ItemRowPreview() {
             ItemRow(
                 item = ItemUiModel(id = UUID.randomUUID(), label = "カレー", isDuplicate = true),
                 color = Color(0xFFAF571D),
-                mark = MarkViewData.TARGET,
+                mark = MarkUiModel.TARGET,
                 busy = false,
                 onPressingChange = {},
                 onLongPress = {},
